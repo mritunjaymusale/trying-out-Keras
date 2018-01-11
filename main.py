@@ -1,8 +1,9 @@
 import pandas as pd
 import keras as K
 from keras.layers import Dense
-import numpy as np
 
+import numpy as np
+import time
 #getting the data from file 
 data = np.genfromtxt("breast-cancer-wisconsin.data", delimiter=",", missing_values="999", filling_values=1.)
 
@@ -33,6 +34,7 @@ model.add(K.layers.Dropout(0.2))
 model.add(Dense(units=2,activation=K.activations.softmax))
 model.compile(loss='categorical_crossentropy',
               optimizer='adam')
-model.summary()
-model.fit(dataX,dataY,epochs=300)
 
+start=time.time()
+model.fit(dataX,dataY,epochs=300,verbose=0)
+print(time.time()-start)
